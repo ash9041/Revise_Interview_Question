@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+    //Declaring a stack for storing the digits
+     stack<char>st;
+
+     for(int i=0;i<num.size();i++){
+        while(!st.empty()&&k>0&&st.top()>num[i]){
+            st.pop();
+            k--;
+        }
+        // handling the case of leading zeros
+        if(st.empty()&&num[i]=='0'){
+         continue;
+        }
+        else{
+        st.push(num[i]);
+        }
+     }
+     /*if k is still not equal to zero then removing the last digit untill k become zero hence
+     to make the number as small as much possible*/
+     while(!st.empty()&&k>0){
+        st.pop();
+        k--;
+     }
+     
+     string ans="";
+     //storing the resultant number in a string after k removal
+     while(!st.empty()){
+      ans+=st.top();
+      
+      st.pop();
+     }
+     reverse(ans.begin(),ans.end());
+     // if string is empty means all digit implies number equal to zero removed hence returning zero
+     if(ans.size()==0)return "0";
+     return ans;
+    }
+};
