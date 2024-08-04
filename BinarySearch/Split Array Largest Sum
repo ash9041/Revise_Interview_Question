@@ -1,0 +1,33 @@
+class Solution {
+public:
+int helper(vector<int>& nums,int mid){
+    int p=1;
+    int sum=0;
+    for(int i=0;i<nums.size();i++){
+        if(sum+nums[i]<=mid){
+            sum+=nums[i];
+        }
+        else{
+            p++;
+            sum=nums[i];
+        }
+    }
+    return p;
+}
+    int splitArray(vector<int>& nums, int k) {
+      int l=*max_element(nums.begin(),nums.end());
+      int e=accumulate(nums.begin(),nums.end(),0);
+      int mid;
+      while(l<=e){
+        mid=l+(e-l)/2;
+        int partion=helper( nums,mid);
+        if(partion>k){
+           l=mid+1;
+        }
+        else{
+           e=mid-1;
+        }
+      } 
+      return l; 
+    }
+};
